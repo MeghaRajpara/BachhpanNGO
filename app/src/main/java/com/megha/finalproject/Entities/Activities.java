@@ -2,7 +2,7 @@ package com.megha.finalproject.Entities;
 
 import java.util.Date;
 
-public class Events {
+public class Activities {
 
     private String event_name;
     private int id;

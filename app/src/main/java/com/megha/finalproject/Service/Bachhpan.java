@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface Bachhpan {
 
-    @GET("Api/listactivity")
+    @GET("listactivity")
     public Call<List<Activities>> getActivities();
 }

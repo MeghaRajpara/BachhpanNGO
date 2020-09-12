@@ -4,28 +4,28 @@ import java.util.Date;
 
 public class Activities {
 
-    private String event_name;
-    private int id;
+    private String name;
+    private int activity_id;
     private Date date;
     private String address;
-    private String descriptions;
+    private String description;
     private int likes;
 
 
-    public String getEvent_name() {
-        return event_name;
+    public String getName() {
+        return name;
     }
 
-    public void setEvent_name(String event_name) {
-        this.event_name = event_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getId() {
-        return id;
+    public int getActivity_id() {
+        return activity_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setActivity_id(int activity_id) {
+        this.activity_id = activity_id;
     }
 
     public Date getDate() {
@@ -44,12 +44,12 @@ public class Activities {
         this.address = address;
     }
 
-    public String getDescriptions() {
-        return descriptions;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getLikes() {

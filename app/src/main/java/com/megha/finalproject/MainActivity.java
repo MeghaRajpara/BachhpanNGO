@@ -2,8 +2,10 @@ package com.megha.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.megha.finalproject.Entities.Activities;
 import com.megha.finalproject.Service.Bachhpan;
@@ -20,10 +22,20 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String BASE_URL = "https://megharajpara.com/collegeProject/Api/";
 
+    TextView username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        username = findViewById(R.id.username);
+
+        Intent intent = getIntent();
+        if(intent.getExtras() != null){
+            String passedUsername = intent.getStringExtra("data");
+            username.setText("Welcome "+passedUsername);
+        }
 
         Retrofit retrofit= new Retrofit.Builder()
                             .baseUrl(BASE_URL)

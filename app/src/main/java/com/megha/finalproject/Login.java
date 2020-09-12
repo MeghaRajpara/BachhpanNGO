@@ -16,6 +16,8 @@ import com.megha.finalproject.Entities.ApiClient;
 import com.megha.finalproject.Entities.LoginRequest;
 import com.megha.finalproject.Entities.LoginResponse;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,7 +53,13 @@ public class Login extends AppCompatActivity {
         loginRequest.setUsername(username.getText().toString());
         loginRequest.setPassword(password.getText().toString());
 
-        Call<LoginResponse> loginResponseCall = ApiClient.getLoginService().userLogin(loginRequest);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("username",loginRequest.getUsername())
+                .addFormDataPart("password",loginRequest.getPassword())
+                .build();
+
+        Call<LoginResponse> loginResponseCall = ApiClient.getLoginService().userLogin(requestBody);
 
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override

@@ -1,13 +1,14 @@
 package com.megha.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.megha.finalproject.Entities.Activities;
 import com.megha.finalproject.Service.Bachhpan;
@@ -23,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     public static final String BASE_URL = "https://megharajpara.com/collegeProject/Api/";
-
+    private Toolbar toolbar;
     TextView username;
 
     @Override
@@ -31,9 +32,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+//        toolbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
+//        setSupportActionBar(toolbar);
+//        toolbar.setLogo(android.R.drawable.ic_menu_info_details);
 
-        username = findViewById(R.id.username);
+
+        //username = findViewById(R.id.username);
 
         Intent intent = getIntent();
         if(intent.getExtras() != null){

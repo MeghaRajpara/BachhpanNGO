@@ -60,7 +60,6 @@ public class Login extends AppCompatActivity {
                 .build();
 
         Call<LoginResponse> loginResponseCall = ApiClient.getLoginService().userLogin(requestBody);
-
         loginResponseCall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

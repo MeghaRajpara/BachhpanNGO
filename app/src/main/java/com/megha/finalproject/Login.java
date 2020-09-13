@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(Login.this,MainActivity.class).putExtra("data",loginResponse.getEmail()));
+                            startActivity(new Intent(Login.this,MainActivity.class).putExtra("data",loginResponse.getUsername()));
                         }
                     },700);
                     Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_SHORT).show();

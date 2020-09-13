@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.megha.finalproject.Entities.Activities;
 import com.megha.finalproject.Service.Bachhpan;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             String passedUsername = intent.getStringExtra("data");
             username.setText("Welcome "+passedUsername);
         }
+
 
         Retrofit retrofit= new Retrofit.Builder()
                             .baseUrl(BASE_URL)

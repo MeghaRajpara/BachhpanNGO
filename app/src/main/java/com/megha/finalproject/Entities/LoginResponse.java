@@ -7,6 +7,7 @@ public class LoginResponse {
     private String first_name;
     private String last_name;
     private String username;
+    private Boolean status;
 
     public int getUser_id() {
         return user_id;
@@ -47,5 +48,13 @@ public class LoginResponse {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

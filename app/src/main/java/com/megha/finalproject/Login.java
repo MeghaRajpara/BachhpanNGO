@@ -76,20 +76,26 @@ public class Login extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("login", loginResponse.getUsername());
+                            if(loginResponse.getStatus()) {
+                                Log.d("login", loginResponse.getUsername());
 
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putBoolean(Const.IsUSERLogin, true);
-                            editor.putString("username", loginRequest.getUsername());
-                            editor.putString("password", loginRequest.getPassword());
-                            editor.commit();
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean(Const.IsUSERLogin, true);
+                                editor.putString("username", loginRequest.getUsername());
+                                editor.putString("password", loginRequest.getPassword());
+                                editor.commit();
 
-                            Intent in = new Intent(Login.this, MainActivity.class);
-                            in.putExtra("data", loginResponse.getUsername());
-                            startActivity(in);
+                                Intent in = new Intent(Login.this, MainActivity.class);
+                                in.putExtra("data", loginResponse.getUsername());
+                                startActivity(in);
+                                Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Intent in = new Intent(Login.this, Login.class);
+                                startActivity(in);
+                                Toast.makeText(Login.this, "Login Fail", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }, 700);
-                    Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Login.this, "Login failed", Toast.LENGTH_SHORT).show();
                 }

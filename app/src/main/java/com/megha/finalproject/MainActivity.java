@@ -1,5 +1,6 @@
 package com.megha.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -90,6 +91,17 @@ public class MainActivity extends AppCompatActivity {
         MenuItem usernamemenu = menu.findItem(R.id.username_display);
         Log.e("menuitem",loginusername);
         usernamemenu.setTitle(loginusername);
+        return true;
+    }
+
+    /*** Menu select ***/
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem itemSelected) {
+        switch (itemSelected.getItemId()){
+            case R.id.addevent:
+
+        }
         return true;
     }
 }

@@ -55,13 +55,4 @@
             android:id="@+id/description"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_margin="30dp"
-        android:text="Add Event"
-        android:id="@+id/btnaddEvent"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/White"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

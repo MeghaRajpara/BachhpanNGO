@@ -1,5 +1,6 @@
 package com.megha.finalproject.Entities;
 
+import com.megha.finalproject.Service.Bachhpan;
 import com.megha.finalproject.Service.LoginService;
 
 import retrofit2.Retrofit;
@@ -28,5 +29,11 @@ public class ApiClient {
         LoginService loginService = getRetrofit().create(LoginService.class);
 
         return loginService;
+    }
+
+    public static Bachhpan getActivityService(){
+        Bachhpan activityService = getRetrofit().create(Bachhpan.class);
+
+        return activityService;
     }
 }

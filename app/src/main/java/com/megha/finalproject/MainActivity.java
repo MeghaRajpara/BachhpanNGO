@@ -28,6 +28,7 @@ import com.megha.finalproject.Common.Const;
 import com.megha.finalproject.Entities.Activities;
 import com.megha.finalproject.Entities.ActivitiesRequest;
 import com.megha.finalproject.Entities.ApiClient;
+import com.megha.finalproject.Entities.VolunteerRequest;
 import com.megha.finalproject.Service.Bachhpan;
 
 import java.util.List;
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         switch (itemSelected.getItemId()){
             case R.id.addevent:
                 AlertDialog.Builder customBuilder = new AlertDialog.Builder(this);
-                customBuilder.setTitle("Name");
+                customBuilder.setTitle("Add event");
 
                 View customDialog = getLayoutInflater().inflate(R.layout.activity_add_event, null);
                 customBuilder.setView(customDialog);
@@ -170,9 +171,9 @@ public class MainActivity extends AppCompatActivity {
 //                                            startActivity(in);
                                         }
                                     },700);
-                                    Toast.makeText(MainActivity.this,"Login Successful",Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(MainActivity.this,"Login Successful",Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(MainActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -197,7 +198,76 @@ public class MainActivity extends AppCompatActivity {
             case R.id.logout:
                 Intent in = new Intent(MainActivity.this, Login.class);
                 startActivity(in);
+                break;
 
+            case R.id.addvolunteer:
+                AlertDialog.Builder customBuilderv = new AlertDialog.Builder(this);
+                customBuilderv.setTitle("Add Volunteer");
+
+                View customDialogv = getLayoutInflater().inflate(R.layout.activity_add_volunteer, null);
+                customBuilderv.setView(customDialogv);
+
+                customBuilderv.setPositiveButton("Add Volunteer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        AlertDialog customView = (AlertDialog)dialogInterface;
+                        EditText firstname = customView.findViewById(R.id.fistname);
+                        EditText lastname = customView.findViewById(R.id.lastname);
+                        EditText email = customView.findViewById(R.id.vemail);
+                        EditText password = customView.findViewById(R.id.vdPassword);
+                        VolunteerRequest volunteerRequest = new VolunteerRequest();
+                        volunteerRequest.setEmail(email.getText().toString());
+                        volunteerRequest.setFirstname(firstname.getText().toString());
+                        volunteerRequest.setLastname(lastname.getText().toString());
+                        volunteerRequest.setPassword(password.getText().toString());
+
+                        RequestBody requestBody = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("firstname",volunteerRequest.getFirstname())
+                                .addFormDataPart("lastname",volunteerRequest.getLastname())
+                                .addFormDataPart("email",volunteerRequest.getEmail())
+                                .addFormDataPart("password",volunteerRequest.getPassword())
+                                .build();
+                        Call<Activities> activityresponse = ApiClient.getActivityService().addActivity(requestBody);
+                        activityresponse.enqueue(new Callback<Activities>() {
+                            @Override
+                            public void onResponse(Call<Activities> call, Response<Activities> response) {
+                                if(response.isSuccessful()){
+                                    Activities acResponse = response.body();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Log.d("Add Volunteer","Added");
+
+//                                            Intent in = new Intent(Login.this,MainActivity.class);
+//                                            in.putExtra("data",loginResponse.getUsername());
+//                                            startActivity(in);
+                                        }
+                                    },700);
+                                    //Toast.makeText(MainActivity.this,"Login Successful",Toast.LENGTH_SHORT).show();
+                                } else {
+                                    //Toast.makeText(MainActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Activities> call, Throwable t) {
+
+                            }
+                        });
+
+                    }
+                });
+
+                customBuilderv.setNegativeButton("Refuse", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                customBuilderv
+                        .create()
+                        .show();
+                break;
         }
         return true;
     }

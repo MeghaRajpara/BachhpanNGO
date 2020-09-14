@@ -1,6 +1,7 @@
 package com.megha.finalproject.Service;
 
 import com.megha.finalproject.Entities.Activities;
+import com.megha.finalproject.Entities.VolunteerRequest;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface Bachhpan {
     @FormUrlEncoded
     @POST("increaseLikes")
     Call<Boolean> IncreaseLike(@Field("activity_id") String activity_id);
+
+    @POST("approvevolunteer")
+    Call<VolunteerRequest> addVolunterr(@Body RequestBody volunteerRequest);
 }

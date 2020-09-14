@@ -7,12 +7,16 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.megha.finalproject.Adapter.EventListAdapter;
 import com.megha.finalproject.Entities.Activities;
 import com.megha.finalproject.Service.Bachhpan;
 
+import java.util.EventListener;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String BASE_URL = "https://megharajpara.com/collegeProject/Api/";
     private Toolbar toolbar;
     TextView username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent.getExtras() != null){
             String passedUsername = intent.getStringExtra("data");
-            username.setText("Welcome "+passedUsername);
+Log.d("passed",passedUsername);
+            //username.setText("Welcome "+passedUsername);
         }
 
 
@@ -56,9 +62,13 @@ public class MainActivity extends AppCompatActivity {
         Call<List<Activities>> allActivities = bachhpan.getActivities();
 
         allActivities.enqueue(new Callback<List<Activities>>() {
+            private ListView listView = findViewById(R.id.events_listview);
+
             @Override
             public void onResponse(Call<List<Activities>> call, Response<List<Activities>> response) {
-                //List<Activities> activitie = response.body();
+                List<Activities> activitie = response.body();
+                EventListAdapter listAdapter = new EventListAdapter(MainActivity.this,activitie);
+                listView.setAdapter(listAdapter);
                 Log.e("AllActivites","Success");
             }
 
@@ -68,4 +78,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

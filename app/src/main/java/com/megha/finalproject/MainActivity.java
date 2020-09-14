@@ -3,11 +3,15 @@ package com.megha.finalproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+//import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,13 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.megha.finalproject.Adapter.EventListAdapter;
+import com.megha.finalproject.Common.Const;
 import com.megha.finalproject.Entities.Activities;
 import com.megha.finalproject.Entities.ActivitiesRequest;
 import com.megha.finalproject.Entities.ApiClient;
-import com.megha.finalproject.Entities.LoginResponse;
 import com.megha.finalproject.Service.Bachhpan;
 
-import java.util.EventListener;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -42,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String BASE_URL = "https://megharajpara.com/collegeProject/Api/";
     private Toolbar toolbar;
     TextView username;
+    String uname;
     private String loginusername;
+    RecyclerView recyclerView;
 
 
     @Override
@@ -55,41 +60,55 @@ public class MainActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        toolbar.setLogo(android.R.drawable.ic_menu_info_details);
 
+        recyclerView = findViewById(R.id.events_listview);
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Const.IsLogin, Context.MODE_PRIVATE);
+        uname = sharedPreferences.getString("username", "");
+//        Toast.makeText(this, "name :" + uname, Toast.LENGTH_SHORT).show();
 
         username = findViewById(R.id.username_display);
         //MenuItem item = Menu.findItem(R.id.username_display);
         Intent intent = getIntent();
-        if(intent.getExtras() != null){
+        if (intent.getExtras() != null) {
             loginusername = intent.getStringExtra("data");
-            Log.e("Setuser",loginusername);
-
+            Log.e("Setuser", loginusername);
         }
 
+        CallAPitoGetEventList();
 
 
-        Retrofit retrofit= new Retrofit.Builder()
-                            .baseUrl(BASE_URL)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
+    }
+
+    public void CallAPitoGetEventList() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         Bachhpan bachhpan = retrofit.create(Bachhpan.class);
 
         Call<List<Activities>> allActivities = bachhpan.getActivities();
 
         allActivities.enqueue(new Callback<List<Activities>>() {
-            private ListView listView = findViewById(R.id.events_listview);
+            //private ListView listView = findViewById(R.id.events_listview);
 
             @Override
             public void onResponse(Call<List<Activities>> call, Response<List<Activities>> response) {
                 List<Activities> activitie = response.body();
-                EventListAdapter listAdapter = new EventListAdapter(MainActivity.this,activitie);
-                listView.setAdapter(listAdapter);
-                Log.e("AllActivites","Success");
+
+                EventListAdapter listAdapter = new EventListAdapter(getApplicationContext(), activitie, MainActivity.this);
+                recyclerView.setAdapter(listAdapter);
+
+                Log.e("AllActivites", "Success");
             }
 
             @Override
             public void onFailure(Call<List<Activities>> call, Throwable t) {
-                Log.e("AllActivites",t.getMessage());
+                Log.e("AllActivites", t.getMessage());
             }
         });
     }
@@ -97,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         MenuItem usernamemenu = menu.findItem(R.id.username_display);
-        Log.e("menuitem",loginusername);
+        Log.e("menuitem", loginusername);
         usernamemenu.setTitle(loginusername);
         return true;
     }

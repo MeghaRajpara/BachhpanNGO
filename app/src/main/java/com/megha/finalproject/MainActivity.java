@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String BASE_URL = "https://megharajpara.com/collegeProject/Api/";
     private Toolbar toolbar;
     TextView username;
+    private String loginusername;
 
 
     @Override
@@ -37,19 +39,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
 //        toolbar = (Toolbar)findViewById(R.id.toolbar_actionbar);
 //        setSupportActionBar(toolbar);
 //        toolbar.setLogo(android.R.drawable.ic_menu_info_details);
 
 
-        //username = findViewById(R.id.username);
-
+        username = findViewById(R.id.username_display);
+        //MenuItem item = Menu.findItem(R.id.username_display);
         Intent intent = getIntent();
         if(intent.getExtras() != null){
-            String passedUsername = intent.getStringExtra("data");
-Log.d("passed",passedUsername);
-            //username.setText("Welcome "+passedUsername);
+            loginusername = intent.getStringExtra("data");
+            Log.e("Setuser",loginusername);
+
         }
+
 
 
         Retrofit retrofit= new Retrofit.Builder()
@@ -83,6 +87,9 @@ Log.d("passed",passedUsername);
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu,menu);
+        MenuItem usernamemenu = menu.findItem(R.id.username_display);
+        Log.e("menuitem",loginusername);
+        usernamemenu.setTitle(loginusername);
         return true;
     }
 }

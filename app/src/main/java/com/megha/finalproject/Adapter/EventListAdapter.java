@@ -76,11 +76,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if (response.isSuccessful()) {
-                            holder.fav_icon.setImageResource(R.drawable.fav_black);
-
                             Log.e("AllActivites", "Success");
                             mainActivity.CallAPitoGetEventList();
-                            Toast.makeText(mContext, "Liked", Toast.LENGTH_SHORT).show();
+                            holder.fav_icon.setImageResource(R.drawable.fav_black);
+                            //Toast.makeText(mContext, "Liked", Toast.LENGTH_SHORT).show();
 
                         }
                     }

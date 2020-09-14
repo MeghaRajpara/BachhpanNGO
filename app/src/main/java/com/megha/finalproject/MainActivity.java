@@ -194,6 +194,9 @@ public class MainActivity extends AppCompatActivity {
                         .create()
                         .show();
                 break;
+            case R.id.logout:
+                Intent in = new Intent(MainActivity.this, Login.class);
+                startActivity(in);
 
         }
         return true;

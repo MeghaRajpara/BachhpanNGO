@@ -10,6 +10,7 @@ public class Activities {
     private String address;
     private String description;
     private int likes;
+    private String image;
 
 
     public String getName() {
@@ -58,5 +59,13 @@ public class Activities {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

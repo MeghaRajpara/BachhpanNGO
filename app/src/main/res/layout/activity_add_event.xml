@@ -19,7 +19,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:hint="Event name"
+        android:hint="E name"
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
